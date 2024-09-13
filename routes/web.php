@@ -27,29 +27,26 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-//Route::get('/', function (){
-//    return '1111111111111';
-//});
-Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
 
-//Route::get('/login', function () {
-//    return view('auth.login');
-//})->name('login');
-////
-//Route::get('/register', function () {
-//    return view('auth.register');
-//})->name('register');
+Route::get('{page}', 'App\Http\Controllers\HomeController@index')->where('page', '.*');
+
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
 //
-
-
-Route::get('/my_page', 'App\Http\Controllers\MyFirstController@index');
-
-
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');
+//
+//
+//Route::get('/my_page', 'App\Http\Controllers\MyFirstController@index');
+//
+//
 Route::get('/about', 'App\Http\Controllers\MyAboutController@index')->name('about.index');
 Route::get('/contacts', 'App\Http\Controllers\MyContactsController@index')->name('contact.index');
 Route::get('/main', 'App\Http\Controllers\MyMainController@index')->name('main.index');
 
-
+//
 Route::post('/author', 'App\Http\Controllers\Post\MyAutorController@store')->name('author.store');
 Route::get('/author/create', 'App\Http\Controllers\MyAutorController@create')->name('author.create');
 Route::get('/author', 'App\Http\Controllers\MyAutorController@index')->name('author.index');
@@ -60,7 +57,7 @@ Route::get('/author/{author}/edit', 'App\Http\Controllers\MyAutorController@edit
 Route::patch('/author/{author}', 'App\Http\Controllers\MyAutorController@update')->name('author.update');
 Route::delete('/author/{author}', 'App\Http\Controllers\MyAutorController@destroy')->name('author.delete');
 
-
+//
 Route::group(['namespace' => 'App\Http\Controllers\Post'], function () {
     Route::get('/posts', 'IndexController')->name('post.index');
     Route::get('/posts/create', 'CreateController')->name('post.create');
@@ -70,7 +67,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Post'], function () {
     Route::patch('/posts/{post}', 'UpdateController')->name('post.update');
     Route::delete('/posts/{post}', 'DestroyController')->name('post.delete');
 });
-
+//
 Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' =>'admin', 'middleware' => 'admin'], function () {
 
     Route::group(['namespace' => 'Post'], function () {
@@ -100,16 +97,16 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' =>'admin', '
 //Route::get('/posts/{post}/edit', 'App\Http\Controllers\MyPostController@edit')->name('post.edit');
 //Route::patch('/posts/{post}', 'App\Http\Controllers\MyPostController@update')->name('post.update');
 //Route::delete('/posts/{post}', 'App\Http\Controllers\MyPostController@destroy')->name('post.delete');
-Route::group(['namespace' => 'App\Http\Controllers\Post'], function () {
-    Route::get('/posts', 'IndexController')->name('post.index');
-    Route::get('/posts/create', 'CreateController')->name('post.create');
-    Route::get('/posts/{post}', 'ShowController')->name('post.show');
-    Route::post('/posts/create', 'StoreController')->name('post.store');
-    Route::get('/posts/{post}/edit', 'EditController')->name('post.edit');
-    Route::patch('/posts/{post}', 'UpdateController')->name('post.update');
-    Route::delete('/posts/{post}', 'DestroyController')->name('post.delete');
-});
-
+//Route::group(['namespace' => 'App\Http\Controllers\Post'], function () {
+//    Route::get('/posts', 'IndexController')->name('post.index');
+//    Route::get('/posts/create', 'CreateController')->name('post.create');
+//    Route::get('/posts/{post}', 'ShowController')->name('post.show');
+//    Route::post('/posts/create', 'StoreController')->name('post.store');
+//    Route::get('/posts/{post}/edit', 'EditController')->name('post.edit');
+//    Route::patch('/posts/{post}', 'UpdateController')->name('post.update');
+//    Route::delete('/posts/{post}', 'DestroyController')->name('post.delete');
+//});
+//
 Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' =>'admin'], function () {
 
     Route::group(['namespace' => 'Post'], function () {
@@ -119,18 +116,18 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' =>'admin'], 
 
 
 
-//Route::get('/dashboard', function () {
-//    return view('dashboard');
-//})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-//Route::middleware('auth')->group(function () {
-//    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-//});
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
 require __DIR__.'/auth.php';
 
 //Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+//Route::get('/home', [HomeController::class, 'index'])->name('home');
