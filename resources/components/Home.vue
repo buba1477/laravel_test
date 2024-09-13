@@ -39,7 +39,8 @@ data() {
     },
     computed: {
         person() {
-           return this.$store.getters.arr;
+            console.log(this.$store.getters.arr);
+            return this.$store.getters.arr;
         }
     }
 }

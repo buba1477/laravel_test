@@ -6,11 +6,6 @@ const router = createRouter({
     history: createWebHistory(),
     LinkactiveClass: 'active',
  routes: [
-     {
-         path: '/',
-         name: 'Главная',
-         component: () => import('@/components/Home.vue')
-     },
   {
    path: '/departament',
    name: 'Отделы',
@@ -25,6 +20,16 @@ const router = createRouter({
          path: '/contacts',
          name: 'Контакты',
          component: () => import('@/components/Contacts.vue')
+     },
+     {
+         path: '/auth',
+         name: 'Авторизация',
+         component: () => import('@/components/Auth.vue')
+     },
+     {
+         path: '/',
+         name: 'Люди',
+         component: () => import('@/components/people/People.vue')
      },
 
  ]

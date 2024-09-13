@@ -46,7 +46,8 @@ Route::get('/about', 'App\Http\Controllers\MyAboutController@index')->name('abou
 Route::get('/contacts', 'App\Http\Controllers\MyContactsController@index')->name('contact.index');
 Route::get('/main', 'App\Http\Controllers\MyMainController@index')->name('main.index');
 
-//
+Route::get('/auth', 'App\Http\Controllers\MyAutorController@auth');
+
 Route::post('/author', 'App\Http\Controllers\Post\MyAutorController@store')->name('author.store');
 Route::get('/author/create', 'App\Http\Controllers\MyAutorController@create')->name('author.create');
 Route::get('/author', 'App\Http\Controllers\MyAutorController@index')->name('author.index');

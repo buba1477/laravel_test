@@ -7,13 +7,13 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 class AuthorController extends Controller
 {
 
-    public function __invoke()
+    public function __invoke(Request $request)
     {
-       $users = Post::all();
-
-        return $users;
+       $res = Post::all();
+        return $res;
     }
 }

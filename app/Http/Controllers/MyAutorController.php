@@ -5,16 +5,25 @@ namespace App\Http\Controllers;
 use App\Models\Autors;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use League\OAuth2\Client\Provider\GenericProvider;
+use League\OAuth2\Client\Token\AccessToken;
 
 class MyAutorController extends Controller
 {
     function index()
     {
-        $autors = Autors::all();
-        return view('author.index', compact('autors'));
+        $redirectUrl = 'localhost:8080/auth?response_type=code&client_id=1&redirect_uri=http://localhost:9090/auth';
 
-        //dd($autors->posts);
+        return redirect()->away($redirectUrl);
     }
+
+function auth(Request $request)
+{
+
+    dd($request->input('code'));
+
+}
 
     public function show(Autors $author)
     {
@@ -42,9 +51,7 @@ class MyAutorController extends Controller
 
     public function create()
     {
-
         return view('author.create');
-        //  dd(11111111);
     }
 
     public function store()
@@ -65,7 +72,6 @@ class MyAutorController extends Controller
 
         $author->delete();
 
-        //dd(222222222);
         return redirect()->route('author.index');
     }
 

@@ -1,5 +1,6 @@
 const state = {
     arr: '',
+    people: ''
 };
 
 const getters = {
@@ -12,6 +13,14 @@ const actions = {
             commit('setArr', response.data)
 
         }).catch(
+            error => console.log(error)
+        )
+    },
+    addPerson({state, commit, dispatch}, person) {
+        return axios.post('/api/people', {title: person.title, text: person.text}).then( response => {
+            let data = response.data
+            return data
+    }).catch(
             error => console.log(error)
         )
     }
