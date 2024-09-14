@@ -25,7 +25,7 @@ services:
       image: postgres:latest
       restart: always
       volumes:
-              - ./tmp/db:/var/lib/postgresql/data
+              - ./tmp/db2:/var/lib/postgresql/data
       environment:
               POSTGRES_DB: laravel
               POSTGRES_USER: postgres
