@@ -1,4 +1,4 @@
-version: '3'
+
 services:
   nginx:
     image: nginx:latest
@@ -25,7 +25,7 @@ services:
       image: postgres:latest
       restart: always
       volumes:
-              - ./tmp/db2:/var/lib/postgresql/data
+              - ./tmp/db3:/var/lib/postgresql/data
       environment:
               POSTGRES_DB: laravel
               POSTGRES_USER: postgres
