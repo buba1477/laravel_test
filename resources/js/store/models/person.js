@@ -9,8 +9,17 @@ const getters = {
 
 const actions = {
     getUsers({state, commit, dispatch}) {
-        let user = axios.get('/api/author').then( response => {
+        let user = axios.get('/api/people').then( response => {
             commit('setArr', response.data)
+
+        }).catch(
+            error => console.log(error)
+        )
+    },
+    getUser({state, commit, dispatch}, id) {
+       return axios.get('/api/' + id).then( response => {
+            console.log(response.data)
+           return response.data
 
         }).catch(
             error => console.log(error)
@@ -21,6 +30,15 @@ const actions = {
             let data = response.data
             return data
     }).catch(
+            error => console.log(error)
+        )
+    },
+
+    editPerson({state, commit, dispatch}, params) {
+        return axios.patch(`/api/`+ params.id, {title: params.title, text: params.text}).then( response => {
+            let data = response.data
+
+        }).catch(
             error => console.log(error)
         )
     }

@@ -17,9 +17,6 @@
                     <li class="nav-item d-none d-sm-inline-block">
                         <router-link to="/" class="nav-link">Home</router-link>
                     </li>
-                    <li class="nav-item d-none d-sm-inline-block">
-                        <router-link to="/contacts" class="nav-link">Contact</router-link>
-                    </li>
                 </ul>
 
                 <!-- Right navbar links -->
@@ -201,12 +198,13 @@
 
                 <!-- Main content -->
                 <section class="content">
-                    <div class="container-fluid">
+                    <div class="main">
+                        <router-link to="/">People</router-link>
+                        <router-link to="/create">Create</router-link>
 
-                        <main class="main">
+                        <main class="main pt-4">
                             <router-view></router-view>
                         </main>
-
 
                     </div><!-- /.container-fluid -->
                 </section>
@@ -276,5 +274,9 @@ export default {
 .main{
     width: 880px;
     margin: 0 auto;
+}
+
+.main > a {
+    margin-right: 20px;
 }
 </style>
