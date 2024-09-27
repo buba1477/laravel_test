@@ -30,12 +30,22 @@ const actions = {
             let data = response.data
             return data
     }).catch(
-            error => console.log(error)
+            error => {
+                return error.response.data.errors
+            }
         )
     },
 
     editPerson({state, commit, dispatch}, params) {
         return axios.patch(`/api/`+ params.id, {title: params.title, text: params.text}).then( response => {
+            let data = response.data
+
+        }).catch(
+            error => console.log(error)
+        )
+    },
+    deletePerson({state, commit, dispatch}, params) {
+        return  axios.delete(`/api/`+ params).then( response => {
             let data = response.data
 
         }).catch(

@@ -22,3 +22,4 @@ Route::get('/people',  App\Http\Controllers\API\GetPeopleController::class);
 Route::get('/{person}',  App\Http\Controllers\API\GetUserController::class);
 Route::post('/people',  App\Http\Controllers\API\PeopleController::class);
 Route::patch('/{person}',  App\Http\Controllers\API\EditPeopleController::class);
+Route::delete('/{person}',  App\Http\Controllers\API\DeletePeopleController::class);

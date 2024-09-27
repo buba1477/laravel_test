@@ -44,12 +44,13 @@ export default {
             .then(
             res => {
                 console.log(res)
+                this.$router.push({ path: '/' });
             }).catch(
             err => {
-                console.log(err)
+               // console.log(error.response.data.errors)
             }
             )
-            this.$router.push({ path: '/' });
+
         }
    },
     mounted(){

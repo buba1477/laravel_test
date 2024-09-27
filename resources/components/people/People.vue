@@ -8,14 +8,16 @@
             <th scope="col">Название</th>
             <th scope="col">Контент</th>
             <th scope="col">Изменить</th>
+            <th scope="col">Удалить</th>
         </tr>
         </thead>
         <tbody>
         <tr v-for="ar in arrPerson">
-            <th scope="row">{{ar.id}}</th>
-            <td>{{ar.title}}</td>
-            <td>{{ar.text}}</td>
+            <th class="align-middle" scope="row">{{ar.id}}</th>
+            <td class="align-middle" >{{ar.title}}</td>
+            <td class="align-middle" >{{ar.text}}</td>
             <td><router-link :to="'/edit/' + ar.id" type="button" class="nav-link">Edit</router-link></td>
+            <td ><a @click.prevent="$store.dispatch('deletePerson', ar.id)" type="button" class="nav-link text-danger">Delete</a></td>
         </tr>
         </tbody>
     </table>

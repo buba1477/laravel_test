@@ -28,13 +28,14 @@ export default {
             let data = this.$store.dispatch('addPerson', {title: this.title, text: this.text})
                 .then(
                 res => {
-                    console.log(res)
+                    // this.$router.push({ path: '/' })
+                    console.log(res.title)
                 }).catch(
                 err => {
                     console.log(err)
                 }
                 )
-           this.$router.push({ path: '/' })
+
         }
     }
 }
