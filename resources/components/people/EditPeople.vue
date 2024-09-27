@@ -46,7 +46,7 @@ export default {
             .then(
             res => {
                // console.log(this.$store.getters.errorUpdate.text);
-                //this.$router.push({ path: '/' });
+                // this.$router.push({ path: '/' });
             }).catch(
             err => {
                console.log(err)

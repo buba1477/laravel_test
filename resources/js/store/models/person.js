@@ -1,3 +1,5 @@
+import router from './../../router';
+
 const state = {
     arr: '',
     people: '',
@@ -22,7 +24,6 @@ const actions = {
     },
     getUser({state, commit, dispatch}, id) {
        return axios.get('/api/' + id).then( response => {
-            console.log(response.data)
            return response.data
 
         }).catch(
@@ -42,6 +43,8 @@ const actions = {
 
     editPerson({state, commit, dispatch}, params) {
         return axios.patch(`/api/`+ params.id, {title: params.title, text: params.text}).then( response => {
+
+           router.push({ path: '/' });
             return response.data
 
         }).catch(
