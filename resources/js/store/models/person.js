@@ -1,10 +1,14 @@
 const state = {
     arr: '',
-    people: ''
+    people: '',
+    errorUpdate: [
+
+    ],
 };
 
 const getters = {
-    arr: state => state.arr
+    arr: state => state.arr,
+    errorUpdate: state => state.errorUpdate
 };
 
 const actions = {
@@ -31,22 +35,26 @@ const actions = {
             return data
     }).catch(
             error => {
-                return error.response.data.errors
+                return error.response.data
             }
         )
     },
 
     editPerson({state, commit, dispatch}, params) {
         return axios.patch(`/api/`+ params.id, {title: params.title, text: params.text}).then( response => {
-            let data = response.data
+            return response.data
 
         }).catch(
-            error => console.log(error)
+            error => {
+                console.log( error.response.data.errors);
+                commit('setUpdateErr', error.response.data.errors)
+            }
         )
     },
     deletePerson({state, commit, dispatch}, params) {
         return  axios.delete(`/api/`+ params).then( response => {
-            let data = response.data
+            dispatch('getUsers')
+            return response.data
 
         }).catch(
             error => console.log(error)
@@ -57,7 +65,11 @@ const actions = {
 const mutations = {
     setArr(state, arr) {
         state.arr = arr
-       }
+       },
+
+        setUpdateErr(state, errorUpdate) {
+            state.errorUpdate = errorUpdate
+        }
     }
 
     export default {

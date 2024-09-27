@@ -9,6 +9,8 @@
             <th scope="col">Контент</th>
             <th scope="col">Изменить</th>
             <th scope="col">Удалить</th>
+            <th scope="col">Дата создания</th>
+            <th scope="col">Дата изменения</th>
         </tr>
         </thead>
         <tbody>
@@ -17,7 +19,9 @@
             <td class="align-middle" >{{ar.title}}</td>
             <td class="align-middle" >{{ar.text}}</td>
             <td><router-link :to="'/edit/' + ar.id" type="button" class="nav-link">Edit</router-link></td>
-            <td ><a @click.prevent="$store.dispatch('deletePerson', ar.id)" type="button" class="nav-link text-danger">Delete</a></td>
+            <td ><a @click.prevent="deletePerson(ar.id)" type="button" class="nav-link text-danger">Delete</a></td>
+            <td class="align-middle" >{{ar.created}}</td>
+            <td class="align-middle" >{{ar.updated}}</td>
         </tr>
         </tbody>
     </table>
@@ -44,7 +48,11 @@ export default {
     methods: {
        getPeople() {
     this.$store.dispatch('getUsers')
-   }
+   },
+        deletePerson(id) {
+            this.$store.dispatch('deletePerson', id).then(res =>{
+            })
+        }
     },
     mounted(){
         this.getPeople()

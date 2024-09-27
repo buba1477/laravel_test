@@ -3,9 +3,11 @@
     <h3>Создать запись</h3>
     <div class="mb-3">
         <input v-model="title" type="text" class="form-control" id="title" placeholder="title">
+
     </div>
     <div class="mb-3">
         <input v-model="text" type="text" class="form-control" id="text" placeholder="text">
+
     </div>
     <div class="mb-3">
         <input @click.prevent="setPeople"  class="btn btn-primary"  value="Добавить">
@@ -28,12 +30,12 @@ export default {
             let data = this.$store.dispatch('addPerson', {title: this.title, text: this.text})
                 .then(
                 res => {
-                    // this.$router.push({ path: '/' })
-                    console.log(res.title)
+                    console.log(res);
+                    this.$router.push({ path: '/' })
                 }).catch(
                 err => {
                     console.log(err)
-                }
+                 }
                 )
 
         }

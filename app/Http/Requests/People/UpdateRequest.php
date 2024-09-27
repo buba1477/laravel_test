@@ -23,7 +23,14 @@ class UpdateRequest extends FormRequest
     {
         return [
             'title' => 'required|string',
-            'text' => 'string',
+            'text' => 'required|string',
+        ];
+    }
+    public function messages(): array
+    {
+        return [
+            'title.required' => 'Поле "title" обязательно для заполнения',
+            'text.required' => 'Поле "text" обязательно для заполнения',
         ];
     }
 }

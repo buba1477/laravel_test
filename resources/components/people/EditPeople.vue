@@ -4,9 +4,11 @@
         <h3>Редактировать запись</h3>
         <div class="mb-3">
             <input v-model="title" type="text" class="form-control" id="title" placeholder="title">
+            <p class="text-danger">1</p>
         </div>
         <div class="mb-3">
             <input v-model="text" type="text" class="form-control" id="text" placeholder="text">
+            <p class="text-danger">2</p>
         </div>
         <div class="mb-3">
             <input @click.prevent="editPerson"  class="btn btn-primary"  value="Добавить">
@@ -43,11 +45,11 @@ export default {
             this.$store.dispatch('editPerson', {title: this.title, text: this.text, id: this.$route.params.id})
             .then(
             res => {
-                console.log(res)
-                this.$router.push({ path: '/' });
+               // console.log(this.$store.getters.errorUpdate.text);
+                //this.$router.push({ path: '/' });
             }).catch(
             err => {
-               // console.log(error.response.data.errors)
+               console.log(err)
             }
             )
 
