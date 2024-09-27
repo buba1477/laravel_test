@@ -7,10 +7,10 @@
             <th scope="col">№</th>
             <th scope="col">Название</th>
             <th scope="col">Контент</th>
-            <th scope="col">Изменить</th>
-            <th scope="col">Удалить</th>
             <th scope="col">Дата создания</th>
             <th scope="col">Дата изменения</th>
+            <th scope="col">Изменить</th>
+            <th scope="col">Удалить</th>
         </tr>
         </thead>
         <tbody>
@@ -18,10 +18,10 @@
             <th class="align-middle" scope="row">{{ar.id}}</th>
             <td class="align-middle" >{{ar.title}}</td>
             <td class="align-middle" >{{ar.text}}</td>
-            <td><router-link :to="'/edit/' + ar.id" type="button" class="nav-link">Edit</router-link></td>
-            <td ><a @click.prevent="deletePerson(ar.id)" type="button" class="nav-link text-danger">Delete</a></td>
             <td class="align-middle" >{{ar.created}}</td>
             <td class="align-middle" >{{ar.updated}}</td>
+            <td><router-link :to="'/edit/' + ar.id" type="button" class="nav-link">Edit</router-link></td>
+            <td ><a @click.prevent="deletePerson(ar.id)" type="button" class="nav-link text-danger">Delete</a></td>
         </tr>
         </tbody>
     </table>

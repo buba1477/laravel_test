@@ -3,14 +3,17 @@ import router from './../../router';
 const state = {
     arr: '',
     people: '',
-    errorUpdate: [
+    errorUpdate: {
+        title: '',
+        text: ''
+    }
 
-    ],
 };
 
 const getters = {
     arr: state => state.arr,
-    errorUpdate: state => state.errorUpdate
+    errorUpdateText: state => state.errorUpdate.text ? state.errorUpdate.text[0] : '',
+    errorUpdateTitle: state => state.errorUpdate.title ? state.errorUpdate.title[0] : '',
 };
 
 const actions = {
@@ -32,21 +35,21 @@ const actions = {
     },
     addPerson({state, commit, dispatch}, person) {
         return axios.post('/api/people', {title: person.title, text: person.text}).then( response => {
+            router.push({ path: '/' })
+            commit('setUpdateErr', {title: '', text: ''})
             let data = response.data
             return data
     }).catch(
             error => {
-                return error.response.data
+                commit('setUpdateErr', error.response.data.errors)
             }
         )
     },
 
     editPerson({state, commit, dispatch}, params) {
         return axios.patch(`/api/`+ params.id, {title: params.title, text: params.text}).then( response => {
-
-           router.push({ path: '/' });
-            return response.data
-
+            router.push({ path: '/' });
+            commit('setUpdateErr', {title: '', text: ''})
         }).catch(
             error => {
                 console.log( error.response.data.errors);

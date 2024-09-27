@@ -1,14 +1,16 @@
+
+
 <template>
 
     <div class="w-50">
         <h3>Редактировать запись</h3>
         <div class="mb-3">
             <input v-model="title" type="text" class="form-control" id="title" placeholder="title">
-            <p class="text-danger">1</p>
+            <p class="text-danger">{{titleEmpty}}</p>
         </div>
         <div class="mb-3">
             <input v-model="text" type="text" class="form-control" id="text" placeholder="text">
-            <p class="text-danger">2</p>
+            <p class="text-danger">{{textEmpty}}</p>
         </div>
         <div class="mb-3">
             <input @click.prevent="editPerson"  class="btn btn-primary"  value="Добавить">
@@ -19,7 +21,7 @@
 
 
 <script>
-
+import { mapGetters } from 'vuex';
 export default {
     name: 'EditPeople',
     data(){
@@ -29,7 +31,10 @@ export default {
         }
     },
     computed: {
-
+        ...mapGetters({
+            textEmpty: 'errorUpdateText',
+            titleEmpty: 'errorUpdateTitle'
+        })
     },
     methods: {
        getUser() {
@@ -45,8 +50,6 @@ export default {
             this.$store.dispatch('editPerson', {title: this.title, text: this.text, id: this.$route.params.id})
             .then(
             res => {
-               // console.log(this.$store.getters.errorUpdate.text);
-                // this.$router.push({ path: '/' });
             }).catch(
             err => {
                console.log(err)

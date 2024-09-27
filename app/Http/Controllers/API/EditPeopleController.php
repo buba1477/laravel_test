@@ -13,7 +13,7 @@ class EditPeopleController extends Controller
 
     public function __invoke(UpdateRequest $request, $id)
     {
-       $data = $request->validated();
+        $data = $request->validated();
        $result = Person::find($id)->update($data);
         return $result;
     }
