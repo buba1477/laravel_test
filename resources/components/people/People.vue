@@ -1,6 +1,7 @@
 <template>
 
 <div>
+    <h3>Все записи</h3>
     <table class="table">
         <thead>
         <tr>
@@ -20,7 +21,7 @@
             <td class="align-middle" >{{ar.text}}</td>
             <td class="align-middle" >{{ar.created}}</td>
             <td class="align-middle" >{{ar.updated}}</td>
-            <td><router-link :to="'/edit/' + ar.id" type="button" class="nav-link">Edit</router-link></td>
+            <td><router-link :to="'/edit/' + ar.id" type="button" class="nav-link text-primary">Edit</router-link></td>
             <td ><a @click.prevent="deletePerson(ar.id)" type="button" class="nav-link text-danger">Delete</a></td>
         </tr>
         </tbody>

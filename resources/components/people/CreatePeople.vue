@@ -10,7 +10,7 @@
         <p class="text-danger">{{textEmpty}}</p>
     </div>
     <div class="mb-3">
-        <input @click.prevent="setPeople"  class="btn btn-primary"  value="Добавить">
+        <input type="button" @click.prevent="setPeople"  class="btn btn-primary"  value="Добавить">
     </div>
 </div>
 </template>

@@ -52,7 +52,6 @@ const actions = {
             commit('setUpdateErr', {title: '', text: ''})
         }).catch(
             error => {
-                console.log( error.response.data.errors);
                 commit('setUpdateErr', error.response.data.errors)
             }
         )
@@ -65,7 +64,7 @@ const actions = {
         }).catch(
             error => console.log(error)
         )
-    }
+    },
 };
 
 const mutations = {

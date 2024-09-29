@@ -7,9 +7,14 @@ const router = createRouter({
     LinkactiveClass: 'active',
  routes: [
      {
-         path: '/auth',
-         name: 'Авторизация',
-         component: () => import('@/components/Auth.vue')
+         path: '/login',
+         name: 'Логин',
+         component: () => import('@/components/people/Login.vue')
+     },
+     {
+         path: '/register',
+         name: 'Регистрация',
+         component: () => import('@/components/people/Register.vue')
      },
      {
          path: '/',
@@ -28,5 +33,19 @@ const router = createRouter({
      },
 
  ]
+})
+router.beforeEach((to, from, next) => {
+    if (!localStorage.getItem('x_xsrf_token')) {
+        if (to.name === 'Логин' || to.name === 'Регистрация') {
+            return next();
+        } else {
+           return  next({name: 'Логин'});
+        }
+    }
+    if(to.name === 'Логин' || to.name === 'Регистрация' && localStorage.getItem('x_xsrf_token')) {
+        return next({name: 'Люди'});
+    }
+
+    next();
 })
 export default router;

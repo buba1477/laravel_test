@@ -13,7 +13,7 @@
             <p class="text-danger">{{textEmpty}}</p>
         </div>
         <div class="mb-3">
-            <input @click.prevent="editPerson"  class="btn btn-primary"  value="Добавить">
+            <input type="button" @click.prevent="editPerson"  class="btn btn-primary"  value="Редактировать">
         </div>
     </div>
 
@@ -68,3 +68,4 @@ export default {
 <style scoped>
 
 </style>
+
