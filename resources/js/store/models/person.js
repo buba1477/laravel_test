@@ -6,7 +6,7 @@ const state = {
     errorUpdate: {
         title: '',
         text: ''
-    }
+    },
 
 };
 
@@ -34,7 +34,8 @@ const actions = {
         )
     },
     addPerson({state, commit, dispatch}, person) {
-        return axios.post('/api/people', {title: person.title, text: person.text}).then( response => {
+
+        return axios.post('/api/people', person).then( response => {
             router.push({ path: '/' })
             commit('setUpdateErr', {title: '', text: ''})
             let data = response.data
@@ -70,6 +71,7 @@ const actions = {
 const mutations = {
     setArr(state, arr) {
         state.arr = arr
+
        },
 
         setUpdateErr(state, errorUpdate) {

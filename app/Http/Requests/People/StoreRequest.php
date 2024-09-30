@@ -24,6 +24,7 @@ class StoreRequest extends FormRequest
         return [
             'title' => 'required|string',
             'text' => 'required|string',
+            'file' => 'file|mimes:pdf,docx,doc,jpg,jpeg,png|max:2048'
         ];
 
     }

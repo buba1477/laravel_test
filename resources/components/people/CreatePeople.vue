@@ -1,6 +1,7 @@
 <template>
 <div class="w-50">
     <h3>Создать запись</h3>
+    <form @submit.prevent="setPeople" enctype="multipart/form-data">
     <div class="mb-3">
         <input v-model="title" type="text" class="form-control" id="title" placeholder="title">
         <p class="text-danger">{{titleEmpty}}</p>
@@ -9,9 +10,14 @@
         <input v-model="text" type="text" class="form-control" id="text" placeholder="text">
         <p class="text-danger">{{textEmpty}}</p>
     </div>
+<!--    <div class="mb-3">-->
+<!--        <input type="file" @change="handleFileChange" class="form-control" id="file">-->
+<!--        <p class="text-danger"></p>-->
+<!--    </div>-->
     <div class="mb-3">
-        <input type="button" @click.prevent="setPeople"  class="btn btn-primary"  value="Добавить">
+        <input type="submit" class="btn btn-primary"  value="Добавить">
     </div>
+    </form>
 </div>
 </template>
 
@@ -23,7 +29,8 @@ export default {
     data(){
         return {
     title: null,
-    text: null
+    text: null,
+    file: null
         }
     },
     computed: {
@@ -34,14 +41,25 @@ export default {
     },
     methods: {
         setPeople(){
-            let data = this.$store.dispatch('addPerson', {title: this.title, text: this.text})
+            const formData = new FormData()
+            formData.append('title', this.title)
+            formData.append('text', this.text)
+            // formData.append('file', this.file)
+
+            let data = this.$store.dispatch('addPerson', formData)
                 .then(
                 res => {
+                    //console.log(res);
+
                 }).catch(
                 err => {
                     console.log(err)
                  }
                 )
+
+        },
+        handleFileChange(e) {
+            this.file = e.target.files[0]
 
         }
     }

@@ -19,7 +19,8 @@ class UserResource extends JsonResource
             'title' => $this->title,
             'text' => $this->text,
             'created' => $this->created_at->format('c'),
-            'updated' => $this->updated_at->format('c')
+            'updated' => $this->updated_at->format('c'),
+            'author' => $this->author
         ];
     }
 }
