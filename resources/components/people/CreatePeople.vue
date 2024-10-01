@@ -10,14 +10,15 @@
         <input v-model="text" type="text" class="form-control" id="text" placeholder="text">
         <p class="text-danger">{{textEmpty}}</p>
     </div>
-<!--    <div class="mb-3">-->
-<!--        <input type="file" @change="handleFileChange" class="form-control" id="file">-->
-<!--        <p class="text-danger"></p>-->
-<!--    </div>-->
+    <div class="mb-3">
+        <input type="file" @change="handleFileChange" class="form-control" id="file">
+        <p class="text-danger"></p>
+    </div>
     <div class="mb-3">
         <input type="submit" class="btn btn-primary"  value="Добавить">
     </div>
     </form>
+
 </div>
 </template>
 
@@ -44,13 +45,35 @@ export default {
             const formData = new FormData()
             formData.append('title', this.title)
             formData.append('text', this.text)
-            // formData.append('file', this.file)
+            formData.append('file', this.file)
 
             let data = this.$store.dispatch('addPerson', formData)
                 .then(
                 res => {
-                    //console.log(res);
+                    console.log(res);
+                    const fileName = res.fileName;
+                    const fileData = res.file; // Преобразуем данные файла в Uint8Array
+                    const fileDataDec = atob(fileData);
+                    const uint8Array = new Uint8Array(fileDataDec.length);
 
+                    for (let i = 0; i < fileDataDec.length; i++) {
+                        uint8Array[i] = fileDataDec.charCodeAt(i);
+                    }
+                    // Создаем Blob объект из данных файла
+                    const blob = new Blob([uint8Array], { type: 'application/octet-stream' });
+
+                    // Создаем ссылку для скачивания
+                    const url = window.URL.createObjectURL(blob);
+
+                    // Создаем ссылку на элемент <a> и скачиваем файл
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', fileName);
+                    document.body.appendChild(link);
+                    link.click();
+
+                    // Очищаем URL объект после скачивания
+                    window.URL.revokeObjectURL(url);
                 }).catch(
                 err => {
                     console.log(err)
@@ -61,7 +84,7 @@ export default {
         handleFileChange(e) {
             this.file = e.target.files[0]
 
-        }
+        },
     }
 }
 </script>
