@@ -50,7 +50,7 @@ export default {
             })
         },
         oauth() {
-            window.location.href = 'http://localhost:8080/auth?response_type=code&client_id=1&redirect_uri=http://localhost:8076/oauth';
+           // window.location.href = 'http://localhost:8080/auth?response_type=code&client_id=1&redirect_uri=http://localhost:8076/oauth';
         }
     }
 }

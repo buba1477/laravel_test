@@ -26,8 +26,8 @@ export default {
 
     },
     mounted() {
-        let code = this.$route.query.code;
-        axios.post(`api/${code}`, code).then( res=>{
+        // let code = this.$route.query.code;
+        axios.get(`/api/oauth`).then( res=>{
             console.log(res);
         }).catch(err=>{
             console.log(err);

@@ -18,7 +18,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/{oauth}', App\Http\Controllers\API\OauthController::class);
+Route::get('/oauth', App\Http\Controllers\API\OauthController::class);
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
 
