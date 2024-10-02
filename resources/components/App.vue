@@ -5,6 +5,7 @@
             <li v-if="!token" class="mx-2 nav-item"><router-link :to="{name:'Логин'}">Login</router-link></li>
             <li v-if="!token" class="mx-2 nav-item"><router-link to="/register">Register</router-link></li>
             <li v-if="token" class="mx-2 nav-item"><a href="#" @click.prevent="logout">Logout</a></li>
+            <li  class="mx-2 nav-item"><a href="#" @click.prevent="oauth">вход через oauth</a></li>
              </ul>
         </div>
 
@@ -47,6 +48,9 @@ export default {
                 localStorage.removeItem('x_xsrf_token')
                 this.$router.push('/login');
             })
+        },
+        oauth() {
+            window.location.href = 'http://localhost:8080/auth?response_type=code&client_id=1&redirect_uri=http://localhost:8076/oauth';
         }
     }
 }

@@ -31,21 +31,26 @@ const router = createRouter({
          name: 'Изменить',
          component: () => import('@/components/people/EditPeople.vue')
      },
+     {
+         path: '/oauth',
+         name: 'oauth',
+         component: () => import('@/components/people/Oauth.vue')
+     },
 
  ]
 })
-router.beforeEach((to, from, next) => {
-    if (!localStorage.getItem('x_xsrf_token')) {
-        if (to.name === 'Логин' || to.name === 'Регистрация') {
-            return next();
-        } else {
-           return  next({name: 'Логин'});
-        }
-    }
-    if(to.name === 'Логин' || to.name === 'Регистрация' && localStorage.getItem('x_xsrf_token')) {
-        return next({name: 'Люди'});
-    }
-
-    next();
-})
+// router.beforeEach((to, from, next) => {
+//     if (!localStorage.getItem('x_xsrf_token')) {
+//         if (to.name === 'Логин' || to.name === 'Регистрация') {
+//             return next();
+//         } else {
+//            return  next({name: 'Логин'});
+//         }
+//     }
+//     if(to.name === 'Логин' || to.name === 'Регистрация' && localStorage.getItem('x_xsrf_token')) {
+//         return next({name: 'Люди'});
+//     }
+//
+//     next();
+// })
 export default router;

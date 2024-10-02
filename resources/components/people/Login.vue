@@ -25,18 +25,17 @@ export default {
 
     },
     methods: {
-        login(){
-            axios.get('/sanctum/csrf-cookie').then(response => {
-                axios.post('/login', {
-                    email: this.email,
-                    password: this.pass
-                }).then(response => {
-                    console.log(response);
-                    localStorage.setItem('x_xsrf_token', response.config.headers['X-XSRF-TOKEN'])
-                    this.$router.push('/');
-                })
-            })
-        }
+        // login(){
+        //     axios.get('/sanctum/csrf-cookie').then(response => {
+        //         axios.post('/login', {
+        //             email: this.email,
+        //             password: this.pass
+        //         }).then(response => {
+        //             localStorage.setItem('x_xsrf_token', response.config.headers['X-XSRF-TOKEN'])
+        //             this.$router.push('/');
+        //         })
+        //     })
+        // }
     }
 }
 </script>
