@@ -16,7 +16,7 @@ class ImportDataClient
 
         $this->client = new Client([
             // Base URI is used with relative requests
-            'base_uri' => 'https://jsonplaceholder.typicode.com/comments',
+            'base_uri' => 'http://gateway.docker.internal:8080/',
             // You can set any number of default request options.
             'timeout'  => 2.0,
             'verify' => false,

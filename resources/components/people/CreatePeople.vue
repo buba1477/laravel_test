@@ -43,7 +43,7 @@ export default {
     methods: {
         setPeople(){
             const formData = new FormData()
-            formData.append('title', this.title)
+            formData.append(' title', this.title)
             formData.append('text', this.text)
             formData.append('file', this.file)
 

@@ -1,4 +1,5 @@
 import router from './../../router';
+import {max} from "@popperjs/core/lib/utils/math.js";
 
 const state = {
     arr: '',
@@ -16,17 +17,44 @@ const getters = {
     errorUpdateTitle: state => state.errorUpdate.title ? state.errorUpdate.title[0] : '',
 };
 
+const api = axios.create();
+
+
+api.interceptors.request.use(config =>{
+
+    if(localStorage.getItem('access_token')){
+        config.headers = {
+            'authorization': `Bearer ${localStorage.getItem('access_token')}`
+        }
+    }
+
+    return config
+}, error => {
+    console.log(error)
+})
+
+api.interceptors.response.use(config =>{
+    if(localStorage.getItem('access_token')) {
+        config.headers = {
+            'authorization': `Bearer ${localStorage.getItem('access_token')}`
+        }
+    }
+    return config
+}, error => {
+    console.log(error)
+    router.push('/api/auth/login')
+})
+
 const actions = {
     getUsers({state, commit, dispatch}) {
-        let user = axios.get('/api/people').then( response => {
+        let user = api.get('/api/auth/people').then( response => {
             commit('setArr', response.data)
-
         }).catch(
             error => console.log(error)
         )
     },
     getUser({state, commit, dispatch}, id) {
-       return axios.get('/api/' + id).then( response => {
+       return api.get('/api/auth/' + id).then( response => {
            return response.data
 
         }).catch(
@@ -35,7 +63,7 @@ const actions = {
     },
     addPerson({state, commit, dispatch}, person) {
 
-        return axios.post('/api/people', person).then( response => {
+        return api.post('/api/auth/people', person).then( response => {
             router.push({ path: '/' })
             commit('setUpdateErr', {title: '', text: ''})
             let data = response.data
@@ -48,7 +76,7 @@ const actions = {
     },
 
     editPerson({state, commit, dispatch}, params) {
-        return axios.patch(`/api/`+ params.id, {title: params.title, text: params.text}).then( response => {
+        return api.patch(`/api/auth/`+ params.id, {title: params.title, text: params.text}).then( response => {
             router.push({ path: '/' });
             commit('setUpdateErr', {title: '', text: ''})
         }).catch(
@@ -58,7 +86,7 @@ const actions = {
         )
     },
     deletePerson({state, commit, dispatch}, params) {
-        return  axios.delete(`/api/`+ params).then( response => {
+        return  api.delete(`/api/auth/`+ params).then( response => {
             dispatch('getUsers')
             return response.data
 

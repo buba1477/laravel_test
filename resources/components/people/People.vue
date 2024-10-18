@@ -51,6 +51,7 @@ export default {
     },
     methods: {
        getPeople() {
+
     this.$store.dispatch('getUsers')
    },
         deletePerson(id) {

@@ -16,7 +16,7 @@ class ImportDepartament extends Command
     public function handle()
     {
         $import = new ImportDataClient();
-        $response = $import->client->request('GET', '');
+        $response = $import->client->request('GET', 'me');
         $data = json_decode($response->getBody()->getContents());
         dd($data);
     }
