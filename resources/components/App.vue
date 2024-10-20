@@ -3,8 +3,8 @@
         <div class="d-flex justify-content-end m-4 ">
              <ul class="nav mr-2">
             <li v-if="!token" class="mx-2 nav-item"><router-link :to="{name:'Логин'}">Login</router-link></li>
-            <li v-if="!token" class="mx-2 nav-item"><router-link to="/register">Register</router-link></li>
-            <li v-if="token" class="mx-2 nav-item"><a href="#" @click.prevent="logout">Logout</a></li>
+            <li  v-if="!token" class="mx-2 nav-item"><router-link to="/register">Register</router-link></li>
+            <li  v-if="token"class="mx-2 nav-item"><a href="#" @click.prevent="logout">Logout</a></li>
             <li  class="mx-2 nav-item"><a href="#" @click.prevent="oauth">вход через oauth</a></li>
              </ul>
         </div>
@@ -21,7 +21,7 @@
 
 <script>
 
-
+import api from "../js/api";
 export default {
     name: "App",
     components: {
@@ -40,13 +40,26 @@ export default {
         }
     },
     methods: {
+        // getToken() {
+        //    this.token = localStorage.getItem('x_xsrf_token')
+        // },
+        // logout() {
+        //     axios.post('/logout').then(response => {
+        //         localStorage.removeItem('x_xsrf_token')
+        //         this.$router.push('/login');
+        //     })
+        // },
+
         getToken() {
-           this.token = localStorage.getItem('x_xsrf_token')
+           this.token = localStorage.getItem('access_token')
         },
         logout() {
-            axios.post('/logout').then(response => {
-                localStorage.removeItem('x_xsrf_token')
+
+            api.post('/api/auth/logout').then(response => {
+                localStorage.removeItem('access_token')
                 this.$router.push('/login');
+            }).catch(error => {
+                console.log(error)
             })
         },
         oauth() {

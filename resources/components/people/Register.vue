@@ -30,24 +30,44 @@ password_confirmation: ''
     },
     methods: {
 
-        register() {
-            axios.get('/sanctum/csrf-cookie').then(response => {
-                axios.post('/register', {
-                    name: this.name,
-                    email: this.email,
-                    password: this.password,
-                    password_confirmation: this.password_confirmation
-                }).then(response => {
-                    console.log(response);
-                    localStorage.setItem('x_xsrf_token', response.config.headers['X-XSRF-TOKEN'] || '')
-                    this.$router.push('/');
-                })
-            })
-        }
-    },
-    mounted(){
+        // register() {
+        //     axios.get('/sanctum/csrf-cookie').then(response => {
+        //         axios.post('/register', {
+        //             name: this.name,
+        //             email: this.email,
+        //             password: this.password,
+        //             password_confirmation: this.password_confirmation
+        //         }).then(response => {
+        //             console.log(response);
+        //             localStorage.setItem('x_xsrf_token', response.config.headers['X-XSRF-TOKEN'] || '')
+        //             this.$router.push('/');
+        //         })
+        //     })
+        // }
 
-    }
+
+        register() {
+            axios.post('/register', {
+                name: this.name,
+                email: this.email,
+                password: this.password,
+                password_confirmation: this.password_confirmation
+            }).then(response => {
+                // console.log(response);
+                axios.post('/api/auth/login', {
+                    email: this.email,
+                    password: this.password
+                }).then(res => {
+                    localStorage.setItem('access_token', res.data.access_token);
+                    this.$router.push({name: 'Люди'});
+                })
+                // })
+                // localStorage.setItem('access_token', response.data.access_token);
+                // this.$router.push('/');
+            })
+        },
+
+    },
 }
 </script>
 

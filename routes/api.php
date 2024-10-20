@@ -40,7 +40,7 @@ Route::group([
     Route::post('refresh', 'App\Http\Controllers\AuthController@refresh');
     Route::post('me', 'App\Http\Controllers\AuthController@me');
 
-    Route::group(['middleware' => 'auth:api'], function() {
+    Route::group(['middleware' => 'jwt.auth'], function() {
         Route::get('/people',  App\Http\Controllers\API\GetPeopleController::class);
         Route::get('/{person}',  App\Http\Controllers\API\GetUserController::class);
         Route::post('/people',  App\Http\Controllers\API\PeopleController::class);

@@ -2,7 +2,7 @@
 import {createRouter, createWebHistory} from 'vue-router';
 
 
-const router = createRouter({
+const route = createRouter({
     history: createWebHistory(),
     LinkactiveClass: 'active',
  routes: [
@@ -36,10 +36,15 @@ const router = createRouter({
          name: 'oauth',
          component: () => import('@/components/people/Oauth.vue')
      },
+     {
+         path: '/:catchAll(.*)',
+         name: '404',
+         component: () => import('@/components/people/People.vue')
+     },
 
  ]
 })
-// router.beforeEach((to, from, next) => {
+// route.beforeEach((to, from, next) => {
 //     if (!localStorage.getItem('x_xsrf_token')) {
 //         if (to.name === 'Логин' || to.name === 'Регистрация') {
 //             return next();
@@ -53,4 +58,21 @@ const router = createRouter({
 //
 //     next();
 // })
-export default router;
+
+route.beforeEach((to, from, next) => {
+  const accessToken = localStorage.getItem('access_token');
+if(!accessToken) {
+    if(to.name === 'Логин' || to.name === 'Регистрация') {
+        return next();
+    }
+    return next({name: 'Логин'});
+}
+
+    if(accessToken && to.name === 'Логин' || to.name === 'Регистрация') {
+        return next({name: 'Люди'});
+    }
+    next();
+})
+
+
+export default route;

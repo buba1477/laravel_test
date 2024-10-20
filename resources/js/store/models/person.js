@@ -1,5 +1,6 @@
 import router from './../../router';
 import {max} from "@popperjs/core/lib/utils/math.js";
+import api from "../../api";
 
 const state = {
     arr: '',
@@ -17,33 +18,7 @@ const getters = {
     errorUpdateTitle: state => state.errorUpdate.title ? state.errorUpdate.title[0] : '',
 };
 
-const api = axios.create();
 
-
-api.interceptors.request.use(config =>{
-
-    if(localStorage.getItem('access_token')){
-        config.headers = {
-            'authorization': `Bearer ${localStorage.getItem('access_token')}`
-        }
-    }
-
-    return config
-}, error => {
-    console.log(error)
-})
-
-api.interceptors.response.use(config =>{
-    if(localStorage.getItem('access_token')) {
-        config.headers = {
-            'authorization': `Bearer ${localStorage.getItem('access_token')}`
-        }
-    }
-    return config
-}, error => {
-    console.log(error)
-    router.push('/api/auth/login')
-})
 
 const actions = {
     getUsers({state, commit, dispatch}) {
