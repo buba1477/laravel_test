@@ -44,6 +44,8 @@ export default {
             }).then(res => {
                 localStorage.setItem('access_token', res.data.access_token);
                 this.$router.push('/');
+            }).catch(err => {
+                console.log(err)
             })
         }
     }

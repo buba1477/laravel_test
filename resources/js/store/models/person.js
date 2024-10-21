@@ -39,6 +39,9 @@ const actions = {
     addPerson({state, commit, dispatch}, person) {
 
         return api.post('/api/auth/people', person).then( response => {
+
+
+            console.log(response)
             router.push({ path: '/' })
             commit('setUpdateErr', {title: '', text: ''})
             let data = response.data

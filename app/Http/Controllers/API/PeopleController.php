@@ -14,9 +14,9 @@ class PeopleController extends Controller
     {
         $data = $request->validated();
         $file = $request->file('file');
-        $filePath = $file->store('public');
+        $filePath = $file->store('local');
         $fileName = $file->getClientOriginalName();
-
+        $fileContents = file_get_contents(storage_path('app/' . $filePath));
         // Удалить ключ 'file' из массива $data
         unset($data['file']);
 
@@ -30,7 +30,7 @@ class PeopleController extends Controller
         $result['file_name'] = $fileName;
         return response()->json([
             'fileName' => $fileName,
-            'file' => base64_encode(file_get_contents($file)),
+            'file' => base64_encode($fileContents),
         ]);
     }
 }

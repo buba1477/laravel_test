@@ -64,6 +64,8 @@ password_confirmation: ''
                 // })
                 // localStorage.setItem('access_token', response.data.access_token);
                 // this.$router.push('/');
+            }).catch(error => {
+                console.log(error)
             })
         },
 
