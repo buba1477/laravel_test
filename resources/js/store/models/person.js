@@ -22,7 +22,9 @@ const getters = {
 
 const actions = {
     getUsers({state, commit, dispatch}) {
-        let user = api.get('/api/auth/people').then( response => {
+        return api.get('/api/auth/people').then( response => {
+            console.log(response)
+
             commit('setArr', response.data)
         }).catch(
             error => console.log(error)
@@ -40,8 +42,8 @@ const actions = {
 
         return api.post('/api/auth/people', person).then( response => {
 
-
-            console.log(response)
+            console.log(response);
+            // return
             router.push({ path: '/' })
             commit('setUpdateErr', {title: '', text: ''})
             let data = response.data
@@ -72,6 +74,7 @@ const actions = {
             error => console.log(error)
         )
     },
+
 };
 
 const mutations = {

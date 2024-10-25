@@ -11,9 +11,20 @@
         <p class="text-danger">{{textEmpty}}</p>
     </div>
     <div class="mb-3">
-        <input type="file" @change="handleFileChange" class="form-control" id="file">
+        <input type="file" @change="handleFileChange" class="form-control" id="file" multiple>
         <p class="text-danger"></p>
     </div>
+        <!-- Отображение выбранных файлов -->
+        <div v-if="attachedFiles.length > 0" class="">
+            <ul>
+                <li v-for="(file, index) in attachedFiles" :key="index">
+                    {{ file.name }}
+                    <a href="#" class="" @click.prevent="removeAttachedFile(index)">
+                        <i class="bi bi-x-circle-fill"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
     <div class="mb-3">
         <input type="submit" class="btn btn-primary"  value="Добавить">
     </div>
@@ -29,9 +40,10 @@ import { mapGetters } from 'vuex';
 export default {
     data(){
         return {
-    title: null,
-    text: null,
-    file: null
+            title: null,
+            text: null,
+            file: null,
+            attachedFiles: []
         }
     },
     computed: {
@@ -42,15 +54,19 @@ export default {
     },
     methods: {
         setPeople(){
+
+           // console.log(this.file)
+           //  return
             const formData = new FormData()
+
             formData.append(' title', this.title)
             formData.append('text', this.text)
-            formData.append('file', this.file)
-
+            Array.from(this.file).forEach(fil => {
+                formData.append('file[]', fil);
+            });
             let data = this.$store.dispatch('addPerson', formData)
                 .then(
                 res => {
-                    console.log(res);
                     const fileName = res.fileName;
                     const fileData = res.file; // Преобразуем данные файла в Uint8Array
                     const fileDataDec = atob(fileData);
@@ -82,8 +98,50 @@ export default {
 
         },
         handleFileChange(e) {
-            this.file = e.target.files[0]
+            const currentFiles = Array.from(e.target.files);
 
+            // Добавляем новые файлы к текущему списку файлов
+
+            const newFiles = Array.from(this.attachedFiles);
+
+            for (const file of currentFiles) {
+                   newFiles.push(file);
+            }
+
+            //Создаем массив уникальных значений
+
+            const uniqueFiles = newFiles.filter((file, index, self) =>
+                    index === self.findIndex(f =>
+                        f.name === file.name &&
+                        f.size === file.size &&
+                        f.lastModified === file.lastModified
+                    )
+            );
+            // Присваиваем обновленный список файлов обратно в input
+            this.attachedFiles = uniqueFiles;
+
+            const newFileInput = new DataTransfer();
+            for (const file of uniqueFiles) {
+                newFileInput.items.add(file);
+            }
+            const inputElement = document.getElementById('file');
+
+            inputElement.files = newFileInput.files;
+            this.file = newFileInput.files
+        },
+        removeAttachedFile(index) {
+            this.attachedFiles.splice(index, 1);
+
+            // Создаем новый FileList из массива attachedFiles
+            const newFileList = new DataTransfer();
+            for (const file of this.attachedFiles) {
+                newFileList.items.add(file);
+            }
+
+            // Обновляем содержимое элемента input[type="file"] после удаления файла
+            const inputElement = document.getElementById('file');
+            inputElement.files = newFileList.files;
+            this.file = newFileList.files
         },
     }
 }

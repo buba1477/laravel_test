@@ -21,6 +21,11 @@
             <td class="align-middle" >{{ar.title}}</td>
             <td class="align-middle" >{{ar.text}}</td>
             <td class="align-middle" >{{ar.author}}</td>
+            <td class="align-middle">
+                <div>
+
+                </div>
+            </td>
             <td class="align-middle" >{{ar.created}}</td>
             <td class="align-middle" >{{ar.updated}}</td>
             <td><router-link :to="'/edit/' + ar.id" type="button" class="nav-link text-primary">Edit</router-link></td>
@@ -52,12 +57,17 @@ export default {
     methods: {
        getPeople() {
 
-    this.$store.dispatch('getUsers')
+    this.$store.dispatch('getUsers').then(res =>{
+
+    }).catch(err => {
+        console.log(err)
+    })
    },
         deletePerson(id) {
             this.$store.dispatch('deletePerson', id).then(res =>{
             })
-        }
+        },
+
     },
     mounted(){
         this.getPeople()
