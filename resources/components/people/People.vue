@@ -9,6 +9,7 @@
             <th scope="col">Название</th>
             <th scope="col">Контент</th>
             <th scope="col">Автор</th>
+            <th scope="col">Файлы</th>
             <th scope="col">Дата создания</th>
             <th scope="col">Дата изменения</th>
             <th scope="col">Изменить</th>

@@ -13,5 +13,17 @@ class Person extends Model
     protected $guarded = false;
 
 
+    public function peopleFiles()
+    {
+        return $this->hasMany(PeopleFile::class, 'id_people', 'id');
+    }
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($person) {
+            $person->peopleFiles()->delete();
+        });
+    }
 
 }

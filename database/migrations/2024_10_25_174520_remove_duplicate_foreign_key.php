@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('people', function (Blueprint $table) {
-            $table->dropColumn('file_path');
+        Schema::table('people_files', function (Blueprint $table) {
+            $table->dropForeign('people_files_id_people_foreign');
         });
     }
 
@@ -21,8 +21,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('people', function (Blueprint $table) {
-            $table->string('file_path')->nullable();
-        });
+        //
     }
 };

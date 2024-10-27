@@ -24,6 +24,7 @@ class UpdateRequest extends FormRequest
         return [
             'title' => 'required|string',
             'text' => 'required|string',
+            'file.*' => ['file', 'mimes:pdf,docx,doc,jpg,jpeg,png,xls', 'max:2048']
         ];
     }
     public function messages(): array
