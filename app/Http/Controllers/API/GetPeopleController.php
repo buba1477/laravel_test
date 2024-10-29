@@ -22,8 +22,8 @@ class GetPeopleController extends Controller
 //            ->get();
         $res = Person::with('peopleFiles')->get();
 
-//        $res = Person::with('files')->get();
-       // $model = Person::find(29)->forceDelete();
+        // $res = Person::with('files')->get();
+        // $model = Person::find(29)->forceDelete();
         //Storage::disk('local')->delete('local/YKxIMpLTH41uQWTN4osvvmw1Ei0iPgM4wkr0znWE.pdf');
 
         $res = UserResource::collection($res)->resolve();

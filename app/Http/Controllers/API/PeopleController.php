@@ -37,29 +37,5 @@ class PeopleController extends Controller
             return 'Запись уже существует!!!';
         }
 
-
-//        $filePath = $file->store('local');
-//        $fileName = $file->getClientOriginalName();
-        //загрузка файла по пути
-//        $fileContents = Storage::get($filePath);
-//        $fileContents = file_get_contents(storage_path('app/' . $filePath));
-        // Удалить ключ 'file' из массива $data
-//        unset($data['file']);
-
-        // Добавить ключ 'file_path' с путем к файлу
-//        $data['file_path'] = $filePath;
-
-//        $data['author'] = auth()->user()->name;
-
-//        $result = Person::create($data);
-//        $result['storage_path'] = $filePath;
-//        $result['file_name'] = $fileName;
-
-        //Storage::delete($filePath);
-//        return $result;
-//        return response()->json([
-//            'fileName' => $fileName,
-//            'file' => base64_encode($fileContents),
-//        ]);
     }
 }

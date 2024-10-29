@@ -23,8 +23,11 @@
             <td class="align-middle" >{{ar.text}}</td>
             <td class="align-middle" >{{ar.author}}</td>
             <td class="align-middle">
-                <div>
-
+                <div class=""  v-for="file in ar.files">
+                    <a class="" href="#" @click.prevent="downloadFile(file.file_path, file.file_name, file.id )">{{ file.file_name }}</a>
+                    <a class="" href="#" @click.prevent="deleteFile(file.id)">
+                        <i class="bi bi-x-circle-fill"></i>
+                    </a>
                 </div>
             </td>
             <td class="align-middle" >{{ar.created}}</td>
@@ -65,9 +68,48 @@ export default {
     })
    },
         deletePerson(id) {
-            this.$store.dispatch('deletePerson', id).then(res =>{
+           this.$store.dispatch('deletePerson', id).then(res =>{
             })
         },
+
+        downloadFile(path, name, id){
+
+            this.$store.dispatch('downloadFile', {path: path, name: name, id:id }).then(res=>{
+                //Скачиваем файлик
+                const fileName = res.name;
+                const fileData = res.file; // Преобразуем данные файла в Uint8Array
+                const fileDataDec = atob(fileData);
+                const uint8Array = new Uint8Array(fileDataDec.length);
+
+                for (let i = 0; i < fileDataDec.length; i++) {
+                    uint8Array[i] = fileDataDec.charCodeAt(i);
+                }
+                // Создаем Blob объект из данных файла
+                const blob = new Blob([uint8Array], { type: 'application/octet-stream' });
+
+                // Создаем ссылку для скачивания
+                const url = window.URL.createObjectURL(blob);
+
+                // Создаем ссылку на элемент <a> и скачиваем файл
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', fileName);
+                document.body.appendChild(link);
+                link.click();
+
+                // Очищаем URL объект после скачивания
+                window.URL.revokeObjectURL(url);
+            }).catch(err => {
+                console.log(err)
+            })
+        },
+
+        deleteFile(id) {
+
+            this.$store.dispatch('deleteFile',id).then(res=>{
+                console.log(id)
+            })
+        }
 
     },
     mounted(){

@@ -19,8 +19,8 @@ class UserResource extends JsonResource
             'title' => $this->title,
             'text' => $this->text,
             'files' => $this->peopleFiles,
-            'created' => $this->created_at->format('c'),
-            'updated' => $this->updated_at->format('c'),
+            'created' =>  $this->created_at->format('Y.m.d'),
+            'updated' => $this->updated_at->format('Y.m.d'),
             'author' => $this->author
         ];
     }

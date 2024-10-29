@@ -41,11 +41,19 @@ Route::group([
     Route::post('me', 'App\Http\Controllers\AuthController@me');
 
     Route::group(['middleware' => 'jwt.auth'], function() {
+
         Route::get('/people',  App\Http\Controllers\API\GetPeopleController::class);
+        Route::get('/download',  App\Http\Controllers\API\DownloadController::class);
+        Route::delete('/{file}',  App\Http\Controllers\API\DeleteFileController::class);
         Route::get('/{person}',  App\Http\Controllers\API\GetUserController::class);
+
         Route::post('/people',  App\Http\Controllers\API\PeopleController::class);
         Route::patch('/{person}',  App\Http\Controllers\API\EditPeopleController::class);
         Route::delete('/{person}',  App\Http\Controllers\API\DeletePeopleController::class);
+
+
+
+
     });
 
 });

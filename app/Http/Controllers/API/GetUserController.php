@@ -3,15 +3,17 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\People\StoreRequest;
+use App\Http\Resources\UserResource;
 use App\Models\Person;
-use Illuminate\Http\Request;
+
 
 class GetUserController extends Controller
 {
 
     public function __invoke(Person $person)
     {
-        return $person;
+        $user = $person->toArray();
+        $user['files'] = $person->peopleFiles()->get()->toArray();
+        return $user;
     }
 }

@@ -23,7 +23,6 @@ const getters = {
 const actions = {
     getUsers({state, commit, dispatch}) {
         return api.get('/api/auth/people').then( response => {
-            console.log(response)
 
             commit('setArr', response.data)
         }).catch(
@@ -32,6 +31,8 @@ const actions = {
     },
     getUser({state, commit, dispatch}, id) {
        return api.get('/api/auth/' + id).then( response => {
+           console.log(response)
+
            return response.data
 
         }).catch(
@@ -42,8 +43,6 @@ const actions = {
 
         return api.post('/api/auth/people', person).then( response => {
 
-            console.log(response);
-            // return
             router.push({ path: '/' })
             commit('setUpdateErr', {title: '', text: ''})
             let data = response.data
@@ -75,7 +74,25 @@ const actions = {
         )
     },
 
-};
+    downloadFile({state, commit, dispatch}, param) {
+        return api.get(`/api/auth/download`, {
+            params: {
+                path: param.path,
+                name: param.name,
+                id: param.id
+            }
+        }).then(response =>{
+           return response.data;
+        })
+    },
+    deleteFile({state, commit, dispatch}, param){
+        return api.delete(`/api/auth/${param}`).then(response =>{
+            dispatch('getUsers');
+        })
+    }
+
+
+    };
 
 const mutations = {
     setArr(state, arr) {
