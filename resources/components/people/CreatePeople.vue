@@ -55,15 +55,15 @@ export default {
     methods: {
         setPeople() {
 
-            // console.log(this.file)
-            //  return
             const formData = new FormData()
 
             formData.append(' title', this.title)
             formData.append('text', this.text)
-            Array.from(this.file).forEach(fil => {
-                formData.append('file[]', fil);
-            });
+            if (this.file) {
+                Array.from(this.file).forEach(fil => {
+                    formData.append('file[]', fil);
+                });
+            }
             let data = this.$store.dispatch('addPerson', formData)
                 .then(
                     res => {

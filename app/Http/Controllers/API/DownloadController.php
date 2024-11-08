@@ -14,15 +14,17 @@ class DownloadController extends Controller
     public function __invoke(Request $request)
     {
         //Загружаем файл по пути
-        $path = $request->path;
-        $name = $request->name;
-        $id = $request->id;
+       $arrFilePush = [];
+       $arrFile = $request->all();
 
-        $fileContents = Storage::get($path);
-        return response()->json([
-            'file' => base64_encode($fileContents),
-            'name' => $name,
-            'id' => $id
-        ]);
+       foreach ($arrFile as $file) {
+           $fileContents = Storage::get($file['file_path']);
+           array_push($arrFilePush, response()->json([
+               'file' => base64_encode($fileContents),
+               'name' => $file['file_name'],
+               'id' => $file['id']
+           ]));
+       }
+        return $arrFilePush;
     }
 }

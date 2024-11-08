@@ -9,6 +9,7 @@ const state = {
         title: '',
         text: ''
     },
+    file: []
 
 };
 
@@ -31,7 +32,6 @@ const actions = {
     },
     getUser({state, commit, dispatch}, id) {
        return api.get('/api/auth/' + id).then( response => {
-           console.log(response)
 
            return response.data
 
@@ -40,7 +40,6 @@ const actions = {
         )
     },
     addPerson({state, commit, dispatch}, person) {
-
         return api.post('/api/auth/people', person).then( response => {
 
             router.push({ path: '/' })
@@ -54,8 +53,9 @@ const actions = {
         )
     },
 
-    editPerson({state, commit, dispatch}, params) {
-        return api.patch(`/api/auth/`+ params.id, {title: params.title, text: params.text}).then( response => {
+    editPerson({state, commit, dispatch}, param) {
+        return api.post(`/api/auth/peoples/${param.id}`, param.data).then( response => {
+
             router.push({ path: '/' });
             commit('setUpdateErr', {title: '', text: ''})
         }).catch(
@@ -65,7 +65,7 @@ const actions = {
         )
     },
     deletePerson({state, commit, dispatch}, params) {
-        return  api.delete(`/api/auth/`+ params).then( response => {
+        return  api.delete(`/api/auth/people/`+ params).then( response => {
             dispatch('getUsers')
             return response.data
 
@@ -76,11 +76,7 @@ const actions = {
 
     downloadFile({state, commit, dispatch}, param) {
         return api.get(`/api/auth/download`, {
-            params: {
-                path: param.path,
-                name: param.name,
-                id: param.id
-            }
+            params: param
         }).then(response =>{
            return response.data;
         })
@@ -89,10 +85,11 @@ const actions = {
         return api.delete(`/api/auth/${param}`).then(response =>{
             dispatch('getUsers');
         })
-    }
-
+    },
 
     };
+
+
 
 const mutations = {
     setArr(state, arr) {
@@ -102,7 +99,10 @@ const mutations = {
 
         setUpdateErr(state, errorUpdate) {
             state.errorUpdate = errorUpdate
-        }
+        },
+    setFile(state, arr){
+        state.file = arr
+    }
     }
 
     export default {

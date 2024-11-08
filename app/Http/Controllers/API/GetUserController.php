@@ -12,8 +12,8 @@ class GetUserController extends Controller
 
     public function __invoke(Person $person)
     {
-        $user = $person->toArray();
-        $user['files'] = $person->peopleFiles()->get()->toArray();
-        return $user;
+        $user = new UserResource($person);
+       // dd($res);
+        return  $user;
     }
 }

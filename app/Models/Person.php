@@ -12,7 +12,6 @@ class Person extends Model
     use HasFactory, SoftDeletes;
     protected $guarded = false;
 
-
     public function peopleFiles()
     {
         return $this->hasMany(PeopleFile::class, 'id_people', 'id');

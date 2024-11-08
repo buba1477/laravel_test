@@ -24,7 +24,7 @@
             <td class="align-middle" >{{ar.author}}</td>
             <td class="align-middle">
                 <div class=""  v-for="file in ar.files">
-                    <a class="" href="#" @click.prevent="downloadFile(file.file_path, file.file_name, file.id )">{{ file.file_name }}</a>
+                    <a class="ml-2" style="margin-right: 3px;" href="#" @click.prevent="downloadFile(file.file_path, file.file_name, file.id )">{{ file.file_name }}</a>
                     <a class="" href="#" @click.prevent="deleteFile(file.id)">
                         <i class="bi bi-x-circle-fill"></i>
                     </a>
@@ -32,8 +32,8 @@
             </td>
             <td class="align-middle" >{{ar.created}}</td>
             <td class="align-middle" >{{ar.updated}}</td>
-            <td><router-link :to="'/edit/' + ar.id" type="button" class="nav-link text-primary">Edit</router-link></td>
-            <td ><a @click.prevent="deletePerson(ar.id)" type="button" class="nav-link text-danger">Delete</a></td>
+            <td class="align-middle"><router-link :to="'/edit/' + ar.id" type="button" class="nav-link text-primary">Edit</router-link></td>
+            <td class="align-middle"><a @click.prevent="deletePerson(ar.id)" type="button" class="nav-link text-danger">Delete</a></td>
         </tr>
         </tbody>
     </table>
@@ -74,34 +74,36 @@ export default {
 
         downloadFile(path, name, id){
 
-            this.$store.dispatch('downloadFile', {path: path, name: name, id:id }).then(res=>{
-                //Скачиваем файлик
-                const fileName = res.name;
-                const fileData = res.file; // Преобразуем данные файла в Uint8Array
-                const fileDataDec = atob(fileData);
-                const uint8Array = new Uint8Array(fileDataDec.length);
+            this.$store.dispatch('downloadFile', [{file_path: path, file_name: name, id:id }]).then(res=>{
 
-                for (let i = 0; i < fileDataDec.length; i++) {
-                    uint8Array[i] = fileDataDec.charCodeAt(i);
-                }
-                // Создаем Blob объект из данных файла
-                const blob = new Blob([uint8Array], { type: 'application/octet-stream' });
+                res.forEach((re) => {
+                    const fileName = re.original.name;
+                    const fileData = re.original.file; // Преобразуем данные файла в Uint8Array
+                    const fileDataDec = atob(fileData);
+                    const uint8Array = new Uint8Array(fileDataDec.length);
 
-                // Создаем ссылку для скачивания
-                const url = window.URL.createObjectURL(blob);
+                    for (let i = 0; i < fileDataDec.length; i++) {
+                        uint8Array[i] = fileDataDec.charCodeAt(i);
+                    }
+                    // Создаем Blob объект из данных файла
+                    const blob = new Blob([uint8Array], { type: 'application/octet-stream' });
 
-                // Создаем ссылку на элемент <a> и скачиваем файл
-                const link = document.createElement('a');
-                link.href = url;
-                link.setAttribute('download', fileName);
-                document.body.appendChild(link);
-                link.click();
+                    // Создаем ссылку для скачивания
+                    const url = window.URL.createObjectURL(blob);
 
-                // Очищаем URL объект после скачивания
-                window.URL.revokeObjectURL(url);
-            }).catch(err => {
-                console.log(err)
-            })
+                    // Создаем ссылку на элемент <a> и скачиваем файл
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', fileName);
+                    document.body.appendChild(link);
+                    link.click();
+                    // Очищаем URL объект после скачивания
+                    window.URL.revokeObjectURL(url);
+                }).catch(err => {
+                    console.log(err)
+                  })
+                })
+
         },
 
         deleteFile(id) {

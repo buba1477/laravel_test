@@ -16,10 +16,10 @@ class GetPeopleController extends Controller
 
     public function __invoke(Request $request)
     {
-     //   $res = Person::all()->sortBy('id');
-//        $res = Person::join('people_files', 'people.id', '=', 'people_files.id_people')
-//            ->select('people.*', 'people_files.file_path')
-//            ->get();
+        //   $res = Person::all()->sortBy('id');
+        //  $res = Person::join('people_files', 'people.id', '=', 'people_files.id_people')
+        // ->select('people.*', 'people_files.file_path')
+// ->get();
         $res = Person::with('peopleFiles')->get();
 
         // $res = Person::with('files')->get();
