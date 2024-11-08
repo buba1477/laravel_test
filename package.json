@@ -23,6 +23,8 @@
         "vue": "^3.2.36",
         "vue-loader": "^17.0.1",
         "vue-router": "^4.4.3",
+        "vuetify": "^3.7.4",
+        "vuetifyjs-mix-extension": "^0.0.20",
         "vuex": "^4.0.2"
     }
 }

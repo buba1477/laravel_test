@@ -117,8 +117,6 @@ export default {
         },
         handleFileChange(e) {
             const currentFiles = Array.from(e.target.files);
-            console.log(currentFiles)
-            return
             // Добавляем новые файлы к текущему списку файлов
 
             const newFiles = Array.from(this.attachedFiles);
