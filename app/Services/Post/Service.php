@@ -11,9 +11,10 @@ class Service
     public function store($data)
     {
         $tags = $data['tags'];
+        //dd($tags);
         unset($data['tags']);
         $post = Post::create($data);
-//Первый способ теги раскижать
+//Первый способ теги раскидать
 //        foreach ($tags as $tag) {
 //            PostTag::firstOrCreate([
 //                'tag_id' => $tag,

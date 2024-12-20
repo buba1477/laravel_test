@@ -25,9 +25,12 @@
                     </li>
                 </ul>
             </div>
-            <div class="mb-3">
-                <input type="submit" class="btn btn-primary" value="Добавить">
-            </div>
+<!--            <div class="mb-3">-->
+<!--                <input type="submit" class="btn btn-primary" value="Добавить">-->
+<!--            </div>-->
+
+                <v-btn color="primary" type="submit">Создать</v-btn>
+
         </form>
 
     </div>
@@ -64,6 +67,7 @@ export default {
                     formData.append('file[]', fil);
                 });
             }
+
             let data = this.$store.dispatch('addPerson', formData)
                 .then(
                     res => {

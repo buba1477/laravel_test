@@ -26,9 +26,12 @@
                     </li>
                 </ul>
             </div>
-            <div class="mb-3">
-                <input @click.prevent = editPerson() type="submit" class="btn btn-primary" value="Редактировать">
-            </div>
+<!--            <div class="mb-3">-->
+<!--                <input @click.prevent = editPerson() type="submit" class="btn btn-primary" value="Редактировать">-->
+<!--            </div>-->
+        <v-col cols="auto">
+            <v-btn color="primary" @click.prevent = editPerson() >Редактировать</v-btn>
+        </v-col>
 
     </div>
 </template>

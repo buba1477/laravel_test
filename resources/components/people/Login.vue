@@ -1,11 +1,49 @@
 <template>
 
-<div class="w-50">
-    <h3>Войти</h3>
-    <input v-model="email" type="email" class="form-control mb-3" id="email" placeholder="email">
-    <input v-model="pass" type="password" class="form-control mb-3" id="pass" placeholder="password">
-    <input type="submit" @click.prevent="login" value="Войти" class="btn btn-primary">
-</div>
+<!--<div class="w-50">-->
+<!--    <h3>Войти</h3>-->
+<!--    <input v-model="email" type="email" class="form-control mb-3" id="email" placeholder="email">-->
+<!--    <input v-model="pass" type="password" class="form-control mb-3" id="pass" placeholder="password">-->
+<!--    <v-col cols="auto">-->
+<!--        <v-btn color="primary" @click.prevent="login" >Войти</v-btn>-->
+<!--    </v-col>-->
+<!--</div>-->
+
+    <v-form v-model="valid">
+        <v-container>
+                <v-col
+                    cols="12"
+                    md="4"
+                >
+                    <v-text-field
+                        v-model="email"
+                        :rules="emailRules"
+                        label="E-mail"
+                        required
+
+                    ></v-text-field>
+                </v-col>
+
+            <v-col
+                cols="12"
+                md="4"
+            >
+
+                <v-text-field
+                    v-model="pass"
+                    :readonly="loading"
+                    :rules="[required]"
+                    label="Password"
+                    placeholder="Enter your password"
+                    clearable
+                ></v-text-field>
+            </v-col>
+            <v-col cols="auto">
+                <v-btn color="primary" @click.prevent="login" >Войти</v-btn>
+            </v-col>
+        </v-container>
+    </v-form>
+
 
 </template>
 

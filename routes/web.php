@@ -22,6 +22,12 @@ use App\Http\Controllers\HomeController;
 
 Route::get('{page}', 'App\Http\Controllers\MainController')->where('page', '.*');
 
+Route::group(['prefix'=>'post'], function(){
+    Route::get('/', 'App\Http\Controllers\Admin\Post\IndexController')->name('admin');
+    Route::get('/create', 'App\Http\Controllers\Post\CreateController')->name('create.post');
+    Route::post('/', 'App\Http\Controllers\Post\StoreController')->name('store.post');
+});
+
 
 require __DIR__.'/auth.php';
 

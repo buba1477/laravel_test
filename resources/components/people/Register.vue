@@ -6,7 +6,9 @@
         <input v-model="email" type="email" class="form-control mb-3"  placeholder="email">
         <input v-model="password" type="password" class="form-control mb-3"  placeholder="password">
         <input v-model="password_confirmation" type="password" class="form-control mb-3" placeholder="password_confirmation">
-        <input type="submit" @click.prevent="register" value="Отправить" class="btn btn-primary">
+        <v-col cols="auto">
+            <v-btn color="primary" @click.prevent="register" >Зарегистрировать</v-btn>
+        </v-col>
     </div>
 
 </template>

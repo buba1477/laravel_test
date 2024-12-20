@@ -9,6 +9,8 @@ use App\Models\Autors;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
 
 
 class IndexController extends Controller
@@ -20,6 +22,8 @@ class IndexController extends Controller
         $filter = app()->make(PostFilter::class, ['queryParams' => array_filter($data)]);
         $posts = Post::filter($filter)->paginate(100);
 
-      return view('admin.post.index', compact('posts'));
+    // здесь мы делаем глобальным массив $posts через AppServiceProvider
+
+      return view('admin.post.index');
     }
 }

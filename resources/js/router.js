@@ -36,11 +36,11 @@ const route = createRouter({
          name: 'oauth',
          component: () => import('@/components/people/Oauth.vue')
      },
-     {
-         path: '/:catchAll(.*)',
-         name: '404',
-         component: () => import('@/components/people/People.vue')
-     },
+     // {
+     //     path: '/:catchAll(.*)',
+     //     name: '404',
+     //     component: () => import('@/components/people/People.vue')
+     // },
 
  ]
 })
@@ -59,20 +59,20 @@ const route = createRouter({
 //     next();
 // })
 
-route.beforeEach((to, from, next) => {
-  const accessToken = localStorage.getItem('access_token');
-if(!accessToken) {
-    if(to.name === 'Логин' || to.name === 'Регистрация') {
-        return next();
-    }
-    return next({name: 'Логин'});
-}
-
-    if(accessToken && to.name === 'Логин' || to.name === 'Регистрация') {
-        return next({name: 'Люди'});
-    }
-    next();
-})
+// route.beforeEach((to, from, next) => {
+//   const accessToken = localStorage.getItem('access_token');
+// if(!accessToken) {
+//     if(to.name === 'Логин' || to.name === 'Регистрация') {
+//         return next();
+//     }
+//     return next({name: 'Логин'});
+// }
+//
+//     if(accessToken && to.name === 'Логин' || to.name === 'Регистрация') {
+//         return next({name: 'Люди'});
+//     }
+//     next();
+// })
 
 
 export default route;
