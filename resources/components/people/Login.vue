@@ -33,10 +33,19 @@
                     v-model="pass"
                     :readonly="loading"
                     :rules="[required]"
+                    :type="showPassword ? 'text' : 'password'"
                     label="Password"
                     placeholder="Enter your password"
                     clearable
-                ></v-text-field>
+                >
+                    <template v-slot:append>
+                        <v-icon
+                            @click="showPassword = !showPassword"
+                        >
+                            {{ showPassword ? 'mdi-eye-off' : 'mdi-eye' }}
+                        </v-icon>
+                    </template>
+                </v-text-field>
             </v-col>
             <v-col cols="auto">
                 <v-btn color="primary" @click.prevent="login" >Войти</v-btn>
